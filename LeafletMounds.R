@@ -1,4 +1,4 @@
-###   PLOTTING IN LEAFLET USING ONLINE DATA FROM CA
+###   PLOTTING IN LEAFLET USING BULGARIAN MOUND DATA
 
 # packages
 
@@ -35,7 +35,7 @@ mounds <- mounds[-25,]
 # Leaflet basemapes here are 3D
 mounds <- st_as_sf(mounds, coords = c("Longitude", "Latitude"),  crs = 4326)
 st_crs(mounds)
-
+mounds
 
 
 # Plot the mounds
@@ -51,8 +51,8 @@ leaflet() %>%
   addTiles() %>%
   addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
   addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>%
-  #addMarkers(data=mounds, group="Mounds", icon = MoundIcon, 
-  addCircleMarkers(data=mounds, radius = mounds$HeightMax*1.5, opacity = 0.5, color= "black", stroke = TRUE,
+  addCircleMarkers(data=mounds, radius = mounds$HeightMax*1.5, 
+                   opacity = 0.5, color= "black", stroke = TRUE,
                    fillOpacity = 0.5, weight=2, fillColor = "yellow",
                    popup = paste0("MoundID: ", mounds$identifier,
                                   "<br> Height: ", mounds$HeightMax,
@@ -64,6 +64,21 @@ leaflet() %>%
     options = layersControlOptions(collapsed = T))
 
 
-# Make pretty mound icon
-MoundIcon <- makeIcon(
-  iconUrl = "data/Mound.png", 20, 20)
+# Mounds with Icon
+MoundIcon <- makeIcon(iconUrl = "data/Mound.png", 20, 20)
+
+leaflet() %>%
+  addTiles() %>%
+  addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
+  addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>%
+  addMarkers(data=mounds, group="Mounds", icon = MoundIcon,  
+             popup = paste0("MoundID: ", mounds$identifier,
+                            "<br> Height: ", mounds$HeightMax,
+                            "<br> Condition: ", mounds$Condition,
+                            "<br> Last Damage: ", mounds$MostRecentDamageWithin)) %>%
+  
+  addLayersControl(
+    baseGroups = c("Topo","ESRI Aerial"),
+    overlayGroups = c("Mounds"),
+    options = layersControlOptions(collapsed = T))
+
