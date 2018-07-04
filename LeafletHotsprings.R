@@ -59,7 +59,7 @@ springs.SP$utm_N <- st_coordinates(springs.SP)[,2]
 st_coordinates(springs.SP)
 
 # Coerce back to data.frame:
-springs.SP<-st_set_geometry(springs.SP, NULL)
+#springs.SP<-st_set_geometry(springs.SP, NULL)
 
 plot(springs.SP)
 

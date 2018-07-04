@@ -40,3 +40,6 @@ leaflet() %>%
 addLayersControl(
   baseGroups = c("Geo","Aerial", "Physical"),
   options = layersControlOptions(collapsed = T))
+
+# note that you can feed plain Lat Long columns into Leaflet
+# without having to convert into spatial objects (sf), or projecting
