@@ -8,7 +8,7 @@
 # Packages
 install.packages("leaflet")
 
-# Go
+# Example with Markers
 library(leaflet)
 
 popup = c("Robin", "Jakub", "Jannes")
@@ -21,7 +21,7 @@ leaflet() %>%
                     popup = popup)
 
 
-## Navigate to Sydney
+## Sydney with setView
 leaflet() %>%
   addTiles() %>%
   addProviderTiles("Esri.WorldImagery", 
@@ -29,7 +29,7 @@ leaflet() %>%
   setView(lng = 151.005006, lat = -33.9767231, zoom = 10)
 
 
-# Background: Europe
+# Europe with Layers
 leaflet() %>% 
   addTiles() %>% 
   setView( lng = 2.34, lat = 48.85, zoom = 5 ) %>% 
