@@ -1,4 +1,4 @@
-###   FINDING BACKGROUNDS TO WORK WITH
+###   GETTING STARTED WITH LEAFLET
 
 
 ## Choose favorite backgrounds in:
