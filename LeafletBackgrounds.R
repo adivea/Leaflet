@@ -1,7 +1,7 @@
 ###   GETTING STARTED WITH LEAFLET
 
 
-## Choose favorite backgrounds in:
+## Review what backgrounds are available:
 # https://leaflet-extras.github.io/leaflet-providers/preview/
 ## beware that some need extra options specified
 
@@ -15,7 +15,6 @@ popup = c("Robin", "Jakub", "Jannes")
 
 leaflet() %>%
   addProviderTiles("Esri.WorldPhysical") %>% 
- #addProviderTiles("Esri.WorldImagery") %>% 
   addAwesomeMarkers(lng = c(-3, 23, 11),
                     lat = c(52, 53, 49), 
                     popup = popup)
@@ -42,4 +41,3 @@ addLayersControl(
   options = layersControlOptions(collapsed = T))
 
 # note that you can feed plain Lat Long columns into Leaflet
-# without having to convert into spatial objects (sf), or projecting

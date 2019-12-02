@@ -24,7 +24,7 @@ springs <- htmltab(url, which=1, header = 1,
 
 # Convert Lat/Long columns to numeric:
 
-sapply(springs, class)  # dataframe is  of character class now
+sapply(springs, class)  # dataframe is  of *character* class now
 cols.num<- c("LAT","LONG", "Temp_F", "Temp_C")  # select columns which need to be numeric
 springs[cols.num]<-sapply(springs[cols.num], as.numeric)  
 # beware that some NA's will appear where there are no temperatures available
@@ -48,8 +48,10 @@ head(springs)
 springs.SP <- st_as_sf(springs, coords = c("LONG", "LAT"), crs = 4326)
 st_crs(springs.SP)
 
+## You can now skip to line 67 if you only want to visualise the hotsprings in Leaflet
 
-# to project the file to UTM 10N
+# If you want to project and save the data continue here
+# project the file to UTM 10N
 st_crs(32610)
 springs.SP <- st_transform(springs.SP, crs=32610) # but tiles in Leaflet use Web Mercator 4326
 
@@ -58,10 +60,8 @@ springs.SP$utm_E <- st_coordinates(springs.SP)[,1]
 springs.SP$utm_N <- st_coordinates(springs.SP)[,2]
 st_coordinates(springs.SP)
 
-# Coerce back to data.frame:
-#springs.SP<-st_set_geometry(springs.SP, NULL)
-
-plot(springs.SP)
+# Plot springs
+plot(springs.SP$geometry)
 
 
 ## PLOTTING in Leaflet
