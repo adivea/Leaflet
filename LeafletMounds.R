@@ -33,7 +33,7 @@ cols.num<- c("Longitude","Latitude", "Northing", "Easting")
 mounds_raw[cols.num]<-sapply(mounds_raw[cols.num], as.numeric) # ensure that the coordinates are coming through as numeric datatype
 
 # Check for and eliminate NAs
-which(is.na(cols.num))  # see if there are some NA's where there are no coordinates available
+which(is.na(cols.num))  # see if there are some NA's in coordinate columns and eliminate
  
 
 # Transform dataframe into a spatial feature and project to Web Mercator.  
