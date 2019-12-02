@@ -1,4 +1,4 @@
-Leaflet
+#Leaflet
 
 This repository contains an R project with three R scripts that illustrate how students of R can engage with spatial data through Leaflet package. 
 - The Backgrounds.R illustrates how one might load background tiles (raster background maps) and position one's cursor in them.
