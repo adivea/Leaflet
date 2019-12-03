@@ -39,7 +39,7 @@ which(is.na(cols.num))  # see if there are some NA's in coordinate columns and e
 # Transform dataframe into a spatial feature and project to Web Mercator.  
 # We need to do that because Leaflet basemaps are 3D
 
-mounds <- st_as_sf(mounds, coords = c("Longitude", "Latitude"),  crs = 4326)
+mounds <- st_as_sf(mounds_raw, coords = c("Longitude", "Latitude"),  crs = 4326)
 st_crs(mounds)
 mounds
 
