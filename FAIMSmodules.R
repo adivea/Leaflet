@@ -12,9 +12,9 @@ install.packages("leaflet")
 library(leaflet)
 library(tidyverse)
 
-# Get Locations data from https://docs.google.com/spreadsheets/d/1zzWk_NR1kPZ12e4A0bd-s0dzqVoNoUzt3UNflNzd0ak/edit#gid=1315745559
+# Get Locations data from Github
 
-faims <- read_csv("data/FAIMSlist.csv") 
+faims <- read_csv("https://raw.githubusercontent.com/adivea/Leaflet/master/data/FaimsList.csv")
 
 # eliminate NAs where location info is missing
 faims <- faims %>% 
