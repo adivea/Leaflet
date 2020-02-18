@@ -4,15 +4,15 @@
 ##    https://github.com/FAIMS/burial
   
 
-# packages
+# Packages
 
-install.packages("tidyverse")
-install.packages("leaflet")
-install.packages("htmltab")
-install.packages("sf")
+# install.packages("tidyverse")
+# install.packages("leaflet")
+# install.packages("htmltab")
+# install.packages("sf")
 
 
-# load libraries
+# Libraries
 
 suppressMessages({
   library(tidyverse)
@@ -51,8 +51,8 @@ plot(mounds$geometry, pch = 2, cex = sqrt(mounds$HeightMax))
 
 # Plot the mounds in Leaflet
 
+# Mounds as yellow circles differentiated by height
 library(leaflet)
-
 leaflet() %>%
   addTiles() %>%
   addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%

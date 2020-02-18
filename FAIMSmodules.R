@@ -6,7 +6,8 @@
 ## beware that some need extra options specified
 
 # Packages
-install.packages("leaflet")
+# install.packages("leaflet")
+# install.packages("htmlwidgets")
 
 # Load libraries
 library(leaflet)
