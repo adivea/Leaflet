@@ -76,11 +76,13 @@ leaflet() %>%
   addTiles() %>%
   addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
   addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>%
-  addCircleMarkers(data=springs.SP, group="Hot Springs", radius = 4, opacity=1, fill = "darkblue",stroke=TRUE,
+  addCircleMarkers(lng = springs$LONG,lat =springs$LAT, group="Hot Springs", radius = 4, opacity=1, fill = "darkblue",stroke=TRUE,
                    fillOpacity = 0.75, weight=2, fillColor = "yellow",
-                   popup = paste0("Spring Name: ", springs.SP$SpringName,
-                                  "<br> Temp_F: ", springs.SP$Temp_F,
-                                  "<br> Area: ", springs.SP$AREA)) %>%
+                   popup = paste0("Spring Name: ", springs$SpringName,
+                                  "<br> Temp_F: ", springs$Temp_F,
+                                  "<br> Area: ", springs$AREA)) %>%
+  addControl(rr, position = "bottomleft")
+  addScaleBar(position = "bottomright") %>% 
   addLayersControl(
     baseGroups = c("Topo","ESRI Aerial", "Night"),
     overlayGroups = c("Hot SPrings"),

@@ -2,8 +2,9 @@
 
 
 # Packages (uncomment if you need the packages)
-# install.packages("leaflet")
-# install.packages("htmlwidgets")
+install.packages("leaflet")
+install.packages("htmlwidgets")
+install.packages("tidyverse")
 
 # Load necessary libraries
 library(tidyverse)
@@ -13,8 +14,6 @@ library(leaflet)
 ## Review what backgrounds are available:
 # https://leaflet-extras.github.io/leaflet-providers/preview/
 # beware that some need extra options specified
-
-
 
 ## SYDNEY WITH SETVIEW
 leaflet() %>%
@@ -44,7 +43,7 @@ popup = c("Robin", "Jakub", "Jannes")
 leaflet() %>%
   addProviderTiles("Esri.WorldPhysical") %>% 
   addAwesomeMarkers(lng = c(-3, 23, 11), # note that you can feed plain Lat Long columns into Leaflet
-                    lat = c(52, 53, 49), 
+                    lat = c(54, 53, 49), 
                     popup = popup) %>% 
   addProviderTiles("Esri.WorldPhysical", group = "Physical") %>% 
   addProviderTiles("Esri.WorldImagery", group = "Aerial") %>% 
@@ -55,11 +54,10 @@ leaflet() %>%
     options = layersControlOptions(collapsed = T))
 
 
-
-
 ## CHICAGO HOMICIDES
 
-# Load some data the from Chicago data portal https://data.cityofchicago.org/Public-Safety/Crimes-2017/d62x-nvdr
+# Load some data the from Chicago data portal
+# https://data.cityofchicago.org/Public-Safety/Crimes-2017/d62x-nvdr
 crimes <- read_csv("data/Crimes_-_2017.csv")
 glimpse(crimes)
 

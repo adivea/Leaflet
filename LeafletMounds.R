@@ -26,7 +26,8 @@ getwd()
 # Prepare the data
 
 # Read data
-mounds_raw <- read.csv("data/ElenovoMounds_cleaned.csv", stringsAsFactors = FALSE)
+mounds_raw <- read.csv("data/ElenovoMounds_cleaned.csv", 
+                       stringsAsFactors = FALSE)
 
 # Check that coordinate fields are numbers
 cols.num<- c("Longitude","Latitude", "Northing", "Easting")
@@ -39,13 +40,14 @@ which(is.na(cols.num))  # see if there are some NA's in coordinate columns and e
 # Transform dataframe into a spatial feature and project to Web Mercator.  
 # We need to do that because Leaflet basemaps are 3D
 
-mounds <- st_as_sf(mounds_raw, coords = c("Longitude", "Latitude"),  crs = 4326)
+mounds <- st_as_sf(mounds_raw, coords = c("Longitude", "Latitude"), 
+                   crs = 4326)
 st_crs(mounds)
 mounds
 
 
 # Plot the data
-
+plot(mounds)
 plot(mounds$geometry, pch = 2, cex = sqrt(mounds$HeightMax))
 
 
