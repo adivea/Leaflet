@@ -29,6 +29,7 @@ cols.num<- c("LAT","LONG", "Temp_F", "Temp_C")  # select columns which need to b
 springs[cols.num]<-sapply(springs[cols.num], as.numeric)  
 # beware that some NA's will appear where there are no temperatures available
 
+head(springs$LONG)
 springs$LONG<-springs$LONG*(-1)   # sanity check given the western hemisphere
 head(springs)
 
@@ -61,7 +62,7 @@ st_coordinates(springs.SP)
 # Coerce back to data.frame:
 #springs.SP<-st_set_geometry(springs.SP, NULL)
 
-plot(springs.SP)
+plot(springs.SP$geometry)
 
 
 ## PLOTTING in Leaflet

@@ -47,7 +47,7 @@ plot(mounds$geometry, pch = 2, cex = sqrt(mounds$HeightMax))
 
 library(leaflet)
 
-leaflet() %>%
+moundmap <- leaflet() %>%
   addTiles() %>%
   addProviderTiles("Esri.WorldTopoMap", group = "Topo") %>%
   addProviderTiles("Esri.WorldImagery", group = "ESRI Aerial") %>%
@@ -82,3 +82,8 @@ leaflet() %>%
     overlayGroups = c("Mounds"),
     options = layersControlOptions(collapsed = T))
 
+# Print a html
+# use saveWidget() from library htmlwidgets to save a (standalone) interactive map in the current directory.
+
+library(htmlwidgets)
+saveWidget(moundmap, "moundmap.html", selfcontained = TRUE)
