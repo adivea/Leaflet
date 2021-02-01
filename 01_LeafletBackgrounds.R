@@ -7,9 +7,11 @@
 
 # Packages
 install.packages("leaflet")
+install.packages("htmlwidget")
 
 # Example with Markers
 library(leaflet)
+library(htmlwidgets)
 
 popup = c("Robin", "Jakub", "Jannes")
 
@@ -56,7 +58,7 @@ leaflet() %>%
 # Bring in a choice of esri background layers  
 
 l_aus <- leaflet() %>%   # assign the base location to an object
-  setView(151.2339084, -33.85089, zoom = 13)
+  setView(150.314, -33.74, zoom = 13)
 
 
 esri <- grep("^Esri", providers, value = TRUE)
@@ -116,3 +118,12 @@ leaflet() %>%
 # The googlesheet is at https://docs.google.com/spreadsheets/d/1PlxsPElZML8LZKyXbqdAYeQCDIvDps2McZx1cTVWSzI/edit#gid=0
 
 #########################################################
+# HW solution for RC data
+rc <- read_csv("data/RCFeature.csv")
+glimpse(rc)
+rc <- rc %>% filter(!is.na(Longitude))
+
+AUSmap %>%  # adjust view to Katoomba 150.314, -33.74
+  addMarkers(lng = rc$Longitude, 
+             lat = rc$Latitude,
+             popup = rc$FeatureID)
