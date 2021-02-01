@@ -1,21 +1,27 @@
 ###   GETTING STARTED WITH LEAFLET
 
 
-# Packages (uncomment if you need the packages)
-install.packages("leaflet")
-install.packages("htmlwidgets")
-install.packages("tidyverse")
+## Choose favorite backgrounds in:
+# https://leaflet-extras.github.io/leaflet-providers/preview/
+## beware that some need extra options specified
 
-# Load necessary libraries
-library(tidyverse)
+# Packages
+install.packages("leaflet")
+
+# Example with Markers
 library(leaflet)
 
+popup = c("Robin", "Jakub", "Jannes")
 
-## Review what backgrounds are available:
-# https://leaflet-extras.github.io/leaflet-providers/preview/
-# beware that some need extra options specified
+leaflet() %>%
+  addProviderTiles("Esri.WorldPhysical") %>% 
+ #addProviderTiles("Esri.WorldImagery") %>% 
+  addAwesomeMarkers(lng = c(-3, 23, 11),
+                    lat = c(52, 53, 49), 
+                    popup = popup)
 
-## SYDNEY WITH SETVIEW
+
+## Sydney with setView
 leaflet() %>%
   addTiles() %>%
   addProviderTiles("Esri.WorldImagery", 
@@ -23,35 +29,21 @@ leaflet() %>%
   setView(lng = 151.005006, lat = -33.9767231, zoom = 10)
 
 
-
-## EUROPE WITH LAYERS AND CONTROL MENU
+# Europe with Layers
 leaflet() %>% 
   addTiles() %>% 
   setView( lng = 2.34, lat = 48.85, zoom = 5 ) %>% 
   addProviderTiles("Esri.WorldPhysical", group = "Physical") %>% 
   addProviderTiles("Esri.WorldImagery", group = "Aerial") %>% 
   addProviderTiles("MtbMap", group = "Geo") %>% 
-  
-  addLayersControl(
-    baseGroups = c("Geo","Aerial", "Physical"),
-    options = layersControlOptions(collapsed = T))
 
+addLayersControl(
+  baseGroups = c("Geo","Aerial", "Physical"),
+  options = layersControlOptions(collapsed = T))
 
-## EUROPE EXAMPLE WITH SIMPLE MANUALLY CREATED MARKERS
-popup = c("Robin", "Jakub", "Jannes")
+# note that you can feed plain Lat Long columns into Leaflet
+# without having to convert into spatial objects (sf), or projecting
 
-leaflet() %>%
-  addProviderTiles("Esri.WorldPhysical") %>% 
-  addAwesomeMarkers(lng = c(-3, 23, 11), # note that you can feed plain Lat Long columns into Leaflet
-                    lat = c(54, 53, 49), 
-                    popup = popup) %>% 
-  addProviderTiles("Esri.WorldPhysical", group = "Physical") %>% 
-  addProviderTiles("Esri.WorldImagery", group = "Aerial") %>% 
-  addProviderTiles("MtbMap", group = "Geo") %>% 
-  
-  addLayersControl(
-    baseGroups = c("Geo","Aerial", "Physical"),
-    options = layersControlOptions(collapsed = T))
 
 ########################## SYDNEY HARBOUR DISPLAY WITH LAYERS
 
@@ -73,7 +65,7 @@ for (provider in esri) {
   l_aus <- l_aus %>% addProviderTiles(provider, group = provider)
 }
 
-l_aus %>%
+AUSmap <- l_aus %>%
   addLayersControl(baseGroups = names(esri),
                    options = layersControlOptions(collapsed = FALSE)) %>%
   addMiniMap(tiles = esri[[1]], toggleDisplay = TRUE,
@@ -94,8 +86,33 @@ l_aus %>%
                         }")
 addControl("", position = "topright")
 
+################################## SAVE FINAL PRODUCT
 
-# SAVE YOUR HTML MAP DOCUMENT
-library(htmlwidgets)
+# Save map as a html document (optional, replacement of pushing the export button)
+# only works in root
+
 saveWidget(AUSmap, "AUSmap.html", selfcontained = TRUE)
 
+
+################################## ADD DATA TO LEAFLET
+# Libraries
+library(tidyverse)
+library(googlesheets4)
+library(leaflet)
+
+places <- read_sheet("https://docs.google.com/spreadsheets/d/1PlxsPElZML8LZKyXbqdAYeQCDIvDps2McZx1cTVWSzI/edit#gid=0",col_types = "cccnncn")
+glimpse(places)
+
+leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(lng = places$Longitude, 
+             lat = places$Latitude,
+             popup = places$Description)
+
+#########################################################
+#
+# Task 1: Create a Danish equivalent with esri layers
+# Task 2: Read in the googlesheet data you and your colleagues populated with data. 
+# The googlesheet is at https://docs.google.com/spreadsheets/d/1PlxsPElZML8LZKyXbqdAYeQCDIvDps2McZx1cTVWSzI/edit#gid=0
+
+#########################################################
