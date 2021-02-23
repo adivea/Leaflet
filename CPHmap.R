@@ -62,17 +62,23 @@ MapCPH %>% addAwesomeMarkers(lng = c(12.34, 12.23, 12.11),
 
 # Load data from Googlesheet (deauthorize your connection if read_sheet gives you trouble)
 baths <- read_sheet("https://docs.google.com/spreadsheets/d/15i17dqdsRYv6tdboZIlxTmhdcaN-JtgySMXIXwb5WfE/edit#gid=0",
-                    col_types = "ccnncnnnc")
-glimpse(baths)
+                    col_types = "ccnnncnnnc")
+baths$Quality <- factor(baths$Quality)
+glimpse(factor(baths$Quality))
 
+factpal <- colorNumeric(c("navy", "red", "grey"), 1:3)
+factpal(c(1,1,2))
+pal <- colorFactor(c("navy", "red", "grey"), domain = c("1", "2", "NA"))
 # Read the bath coordinates and names into map
-MapCPH %>% addCircleMarkers(lng=baths$Longitude,
-                           lat=baths$Latitude,
-                           popup = baths$BathhouseName)
+Bathsmap <- MapCPH %>% addCircleMarkers(lng=baths$Longitude,
+                           lat=baths$Latitude, 
+                           color = factpal(baths$Quality),
+                           popup = paste0("Name: ", baths$BathhouseName,
+                                          "<br> Notes: ", baths$Notes))
 
 
 # Save map as a html document (optional, replacement of pushing the export button)
 # only works in root
-
-saveWidget(MapCPH, "Copenhagenmap.html", selfcontained = TRUE)
+library(htmlwidgets)
+saveWidget(Bathsmap, "Bathhousemap.html", selfcontained = TRUE)
 

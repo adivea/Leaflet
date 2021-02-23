@@ -41,6 +41,7 @@ MapDK <- l_dk %>%
                         }")%>%
 addControl("", position = "topright")
 
+MapDK
 MapDK %>% addAwesomeMarkers(lng = c(10.34, 10.23, 10.11),
                             lat = c(55.52, 55.53, 55.49), 
                             popup = c("Mary", "Magnus", "Monty"))
@@ -49,8 +50,18 @@ MapDK %>% addAwesomeMarkers(lng = c(10.34, 10.23, 10.11),
 # Save map as a html document (optional, replacement of pushing the export button)
 # only works in root
 
-saveWidget(DKmap, "DKmap.html", selfcontained = TRUE)
+saveWidget(MapDK, "DKmap.html", selfcontained = TRUE)
 
 #####################################################
 #
-# Task 1: Bring in a choice of stamen background layers ? 
+# Task 1: Bring in a choice of stamen background layers ?
+# Task 2: Bring in point data 
+
+library(googlesheets4)
+
+baths <- read_sheet("https://docs.google.com/spreadsheets/d/15i17dqdsRYv6tdboZIlxTmhdcaN-JtgySMXIXwb5WfE/edit#gid=0",
+                     col_types = "ccnncnnnc")
+glimpse(baths)
+
+MapDK %>% addCircleMarkers(lng=baths$Longitude,
+                           lat=baths$Latitude)
